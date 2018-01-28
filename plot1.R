@@ -35,13 +35,13 @@ if(!exists("summarySCC")){
 
 # Aggregate the values by year
 groupEmissionsByYear <- summarise(group_by(summarySCC, year),
-                                  Emissions=sum(Emissions))
+                                  Total=sum(Emissions))
 
 # Obtain the max value for the y axis limit (in MegaTons).
-yAxisLimit <- ceiling(max(groupEmissionsByYear$Emissions)/1000000)
+yAxisLimit <- ceiling(max(groupEmissionsByYear$Total)/1000000)
 
 # Obtain the number of distinct years
-numDistinctYears <- length(sapply(groupEmissionsByYear$Emissions,
+numDistinctYears <- length(sapply(groupEmissionsByYear$year,
                                   function(x) unique(x)))
 
 ##########
@@ -49,7 +49,7 @@ numDistinctYears <- length(sapply(groupEmissionsByYear$Emissions,
 ##########
 
 # Create the barplot (base plotting system)...
-plot1 <- barplot(height = groupEmissionsByYear$Emissions/1000000,
+plot1 <- barplot(height = groupEmissionsByYear$Total/1000000,
                  names.arg = groupEmissionsByYear$year,
                  xlab = "Year",
                  ylab = "Total emissions from PM2.5 [MegaTons]",
@@ -60,9 +60,9 @@ plot1 <- barplot(height = groupEmissionsByYear$Emissions/1000000,
 # ... and enhances the barplot
 box()
 text(x = plot1,
-     y = (groupEmissionsByYear$Emissions/1000000),
+     y = (groupEmissionsByYear$Total/1000000),
      pos = 3,
-     label = round(groupEmissionsByYear$Emissions/1000000,2))
+     label = round(groupEmissionsByYear$Total/1000000,2))
 
 # Copy the result to file (png format, dimensions 640x480)
 dev.copy(png, filename="plot1.png", width=640, height=480)
