@@ -59,9 +59,9 @@ plot1 <- barplot(height = groupEmissionsByYear$Emissions/1000000,
 # ... and enhances the barplot
 box()
 text(x = plot1,
-     y = (total.emissions$Emissions/1000000),
+     y = (groupEmissionsByYear$Emissions/1000000),
      pos = 3,
-     label = round(total.emissions$Emissions/1000000,2))
+     label = round(groupEmissionsByYear$Emissions/1000000,2))
 
 # Copy the result to file (png format, dimensions 640x480)
 dev.copy(png, filename="plot1.png", width=640, height=480)
